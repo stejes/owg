@@ -1,0 +1,17 @@
+{% extends "skeleton.twig" %}
+{% block content %}
+<h1>Of registreer nu...</h1>
+ 
+
+
+        
+        <div class="registerForm">
+            <form action="account.php?action=login" method="post">
+                <input type="text" name="username" placeholder="Gebruikersnaam">
+                <input type="password" name="password" placeholder="Wachtwoord">
+                <input type="password" name="password2" placeholder="Bevestig wachtwoord">
+                <input type="submit" value="Inloggen">
+            </form>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "skeleton.twig" %}
+
+{% block title %}Edit item{% endblock %}
+
+{% block content %}
+    <h1>Voeg item toe: {{ item.title }}</h1>
+    <form action="item.php?action=add" method="post" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="titel">
+        <input type="text" name="description" placeholder="omschrijving">
+        <label for="img">Voeg een foto toe (max 1.9 Mb): </label>
+        <input type="file" name="img" placeholder="fotobestand">
+        <select name="section">
+            {% for section in sectionList %}              
+                <option value="{{ section.id }}">{{ section.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" name="addItem" value="Toevoegen">
+
+    </form>
+
+{% endblock %}

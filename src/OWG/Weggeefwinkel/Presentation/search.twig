@@ -1,0 +1,59 @@
+{% extends "skeleton.twig" %}
+
+{% block title %}Zoeken{% endblock %}
+
+{% block content %}
+    <div class="searchform">
+        <div class="titleContainer">
+            <h4 class="reverseTitle">zoeken</h4>
+        </div>
+        <form action="search.php" method="get">
+            <input type="text" name="keywords" placeholder="trefwoorden"></input>
+           <select name="postcode">
+                <option selected disabled>Postcode...</option>
+                {% for city in cityList %}              
+                    <option value="{{ city.postcode }}">{{ city.name }}, {{ city.postcode }}</option>
+                {% endfor %}
+            </select>
+            <select name="section">
+                <option selected disabled>Sectie...</option>
+
+                {% for section in sectionList %}              
+                    <option value="{{ section.id }}">{{ section.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="search" value="Zoek">
+        </form>
+    </div>
+
+
+    {% for item in itemList %}
+        
+            <div class="itemdetails">
+
+
+               <div class="itemImg"> <a href="item.php?action=show&id={{ item.id }}"><img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}"></a></div>
+
+                <div class="itemcontent">
+
+                    <h4>{{ item.title|capitalize }}</h4>
+                    <div class="itemdescription">{{ item.description }} </div>
+
+                    <div class="itemfooter">
+                        <span class="itemlocation">{{ item.user.username }} - {{ item.user.city.postcode }} - {{ item.user.city.name }}</span>
+                        <h4 id="item-sectionName">{{item.section.name}}</h4>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        
+
+    {% endfor %}
+
+
+
+{% endblock %}

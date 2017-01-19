@@ -1,0 +1,47 @@
+{% extends "skeleton.twig" %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+   
+    
+    
+
+ 
+    
+     <div class="titleContainer">
+            <h4 class="reverseTitle">Gegevens</h4>
+        </div>
+
+
+    <form action="account.php?action=editData" method="post">
+       
+        {{ user.username }}
+        <input type="text" name="email" placeholder="email" value="{{ user.email }}">
+        <select name="city">
+
+            <option selected disabled>Woonplaats...</option>
+            {% for city in cityList %}
+                {% set selected = "" %}
+                {% if city.name == user.city.name %}
+                    {% set selected = "selected" %}
+                {% endif %}
+                <option value="{{ city.id }}" {{selected}}>
+                    {{city.postcode}}, {{ city.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Wijzig</button>
+
+    </form>
+           <div class="titleContainer">
+            <h4 class="reverseTitle">Paswoord</h4>
+        </div>
+    <form action="account.php?action=editPass" method="post">
+        <input type="password" name="oldPass" placeholder="oud paswoord" >
+        <input type="password" name="pass" placeholder="nieuw paswoord" >
+        <input type="password" name="pass2" placeholder="bevestig nieuw paswoord" >
+        <button type="submit">Wijzig</button>
+    </form>
+
+{% endblock %}

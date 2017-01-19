@@ -1,0 +1,93 @@
+{% extends "skeleton.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="container">
+<div class="spacer md-only"></div>
+        
+        <div class="col-md-6">
+
+
+            <h4 class="reverseTitle">Login</h4>
+
+
+
+
+            {% if error == "loginfailed" %}
+                <p style="color: red">Onjuiste inloggegevens</p>
+            {% endif %}
+
+            <form action="login.php" method="post">
+                <div class="form-group">
+                    <label for="username">Gebruikersnaam</label>
+                    <input type="text" class="form-control" name="username" placeholder="Gebruikersnaam">
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" class="form-control" name="password" placeholder="Wachtwoord">
+                </div>
+
+                <button type="submit" class="btn btn-success" name="login" value="Inloggen">Inloggen</button>
+            </form>
+
+            <div class="spacer"></div>
+        </div>
+        <div class="col-md-6">
+
+            <h4 class="reverseTitle">Registreer</h4>
+
+
+
+            {% if error == "userexists" %}
+                <p style="color: red">Gebruikersnaam bezet</p>
+            {% elseif error == "invalidinput" %}
+                <p style="color: red">Foutieve input</p>
+            {% elseif error == "unknown" %}
+                <p style="color: red">Onbekende fout</p>
+            {% endif %}
+
+            {% for error in regerrors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+
+            <form  action="login.php" method="post">
+                <div class="form-group">
+                    <label for="username">Gebruikersnaam</label>
+                    <input type="text" class="form-control" name="username" placeholder="Gebruikersnaam" value="">
+                </div>
+                <div class="form-group">
+                    <label for="city">Gemeente</label>
+                    <!--<input type="text" name="email" placeholder="email">-->
+                    <select name="city" class="form-control">
+
+                        <option selected disabled>Woonplaats...</option>
+                        {% for city in cityList %}
+                            <option value="{{ city.id }}">
+                                {{city.postcode}}, {{ city.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" class="form-control" name="password" placeholder="Wachtwoord">
+                </div>
+                <div class="form-group">
+                    <label for="password">Bevestig wachtwoord</label>
+                    <input type="password" class="form-control" name="password2" placeholder="Bevestig wachtwoord">
+                </div>
+                <button class="btn btn-success" type="submit" name="register" value="Registreren">Registreren</button>
+            </form>
+        </div>
+
+       
+
+
+    </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "skeleton.twig" %}
+
+{% block title %}Zoeken{% endblock %}
+
+{% block content %}
+    {% for message in messageList %}
+        {% if message.receiver.username == username %}
+            Titel: {{ message.title }} </br>
+            Van: {{ message.sender.username }} </br>
+            Text: {{ message.text }} </br>
+        {% endif %}
+    {% endfor %}
+
+    {% for message in messageList %}
+        {% if message.sender.username == username %}
+            Titel: {{ message.title }} </br>
+            Aan: {{ message.receiver.username }} </br>
+            Text: {{ message.text }} </br>
+        {% endif %}
+    {% endfor %}
+
+
+
+
+
+{% endblock %}

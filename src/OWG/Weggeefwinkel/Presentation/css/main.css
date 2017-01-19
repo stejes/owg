@@ -5,9 +5,87 @@
    ========================================================================== */
 
 
+html{
+    min-height: 100%;
+    position: relative;
+}
+
+.spacer{
+    min-height: 60px;
+}
+
+.container{
+    /*max-width: 740px;*/
+}
+
+.centered-column{
+    margin: 0 auto;
+    float: none;
+}
+
+.itemtitle{
+    font-weight: bold;
+    font-size: 1.5em;
+    
+}
+
+.itemdetails{
+    height: 100%;
+    position: relative;
+    
+}
+
+.itemrow .thumbnail{
+    height: 220px;
+}
+
+.itemrow .thumbnail > img, .itemrow .thumbnail a > img{
+    height: 150px;
+    width: auto;
+}
+
+.itemfull .thumbnail  img, .itemfull .thumbnail a  img{
+    max-height: 350px;
+    width: auto;
+    margin: 0 auto;
+   
+}
+.itemrow{
+    position: relative;
+    border-bottom: inset 1px grey;
+    margin-top: 20px;
+    height: 240px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.imgback{
+    width: 100%;
+    background: grey;
+}
+
+.itembutton button{
+    width: 90px;
+}
+
+.detailbutton{
+    position: absolute;
+    bottom: 0;
+}
+
+.itemfull{
+    margin: 0 auto;
+    float: none;
+}
 
 
-
+.footer-bottom{
+    clear: both;
+    width: 100%;
+    position: absolute;
+    height: 20px;
+    bottom: 0;
+}
 
 
 
