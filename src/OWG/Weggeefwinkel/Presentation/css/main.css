@@ -11,7 +11,7 @@ html{
 }
 
 .spacer{
-    min-height: 60px;
+    min-height: 40px;
 }
 
 .container{
@@ -61,7 +61,7 @@ html{
 
 .imgback{
     width: 100%;
-    background: grey;
+    background: lightgrey;
 }
 
 .itembutton button{
