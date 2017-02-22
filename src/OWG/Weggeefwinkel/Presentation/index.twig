@@ -4,99 +4,109 @@
 
 {% block content %}
 
-   
+
     <div class="jumbotron">
-         <div class="container">
-        <h1>Online weggeefwinkel</h1>
-        <p>Deze site is een platform waarop u uw oude spullen kunt weggeven.</p>
-        <p>Dit is een fictieve website in het kader van een opleiding. </p>
-    </div>
+        <div class="container">
+            <h1>Online weggeefwinkel</h1>
+            <p>Deze site is een platform waarop u uw oude spullen kunt weggeven.</p>
+            <p>Dit is een fictieve website in het kader van een opleiding. </p>
+        </div>
     </div>
 
-    <section class="startsearch clearFix">
-        <div class="container start ">
-            <div class="titleContainer">
-                <h4 class="reverseTitle"> start </h4>
-            </div>
+    <div class="container">
+        <div class="col-md-4">
+          
+                <h2>Start</h2>
+          
             <form action="item.php?action=add" method="post">
-                <input type="submit" name="bla" value="Plaats een advertentie">
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit" name="bla"> Plaats een advertentie</button>
+                </div>
             </form>
             <form action="search.php?keywords=&search=Zoek" method="post">
-                <input type="submit" name="search" value="Toon alle advertenties">
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit" name="search">Toon alle advertenties</button>
+                </div>
             </form>
         </div>
 
 
-        <div class="container search ">
-            <div class="titleContainer">
-                <h4 class="reverseTitle"> zoeken </h4>
-            </div>
+        <div class="col-md-8 ">
+           
+                <h2>Zoeken</h2>
+           
             <form action="search.php" method="get">
-                <input type="text" name="keywords" placeholder="trefwoorden"></input>
-                <select name="postcode">
-                    <option selected disabled>Postcode...</option>
-                    {% for city in cityList %}              
-                        <option value="{{ city.id }}">{{ city.name }}, {{ city.postcode }}</option>
-                    {% endfor %}
-                </select>
-                <select name="section">
-                    <option selected disabled>Sectie...</option>
-                    {% for section in sectionList %}              
-                        <option value="{{ section.id }}">{{ section.name }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" name="search" value="Zoek">
+                <div class="form-group">
+                    <input type="text" name="keywords" placeholder="trefwoorden" class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <select name="postcode" class="form-control">
+                        <option selected disabled>Postcode...</option>
+                        {% for city in cityList %}              
+                            <option value="{{ city.id }}">{{ city.name }}, {{ city.postcode }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select name="section"  class="form-control">
+                        <option selected disabled>Sectie...</option>
+                        {% for section in sectionList %}              
+                            <option value="{{ section.id }}">{{ section.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="btn btn-default" type="submit" name="search">Zoek</button>
             </form>
         </div>
-    </section>
+    </div>
 
-    <section class="itemlist">
-        <div class="container recent">
-            <div class="titleContainer">
-                <h4 class="reverseTitle"> recent </h4>
-            </div>
+    
+        <div class="container">
+            
+                <h2>Recent</h2>
+           
 
-           {% for item in itemList %}
- 
-
-            <div class="itemrow">
-                <div class="col-sm-4 col-md-3 ">
-                    <div class="thumbnail text-center">
-                        <img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}" alt="...">
-                        <div class="caption">
-                            {{ item.user.city.postcode }} - {{ item.user.city.name }} <br>
-                            {{ item.user.username }}
+            {% for item in itemList %}
 
 
+                <div class="itemrow">
+                    <div class="col-sm-4 col-md-3 ">
+                        <div class="thumbnail text-center">
+                            <img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}" alt="...">
+                            <div class="caption">
+                                {{ item.user.city.postcode }} - {{ item.user.city.name }} <br>
+                                {{ item.user.username }}
+
+
+                            </div>
                         </div>
+
+                    </div>
+                    <div class="itemdetails col-sm-6 col-md-7">
+                        <div class="col-sm-12"><a href="search.php?keywords=&section={{ item.section.id }}&search">{{item.section.name}}: </a><span class="itemtitle">{{ item.title|capitalize }}</span></div> 
+                        <div class="itemdescription col-sm-12">{{ item.description }}</div>
+                        <form class="detailbutton col-sm-12" action="item.php?id={{ item.id }}" method="post"><button type="submit" class=" btn btn-default" role="button">Meer...</button></form>
+
+
+
+
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+
+                        {% if item.user.username == user.username %}
+
+                            <div class="row itembutton">
+                                <form class="navbar-form navbar-right" action="item.php?action=edit&id={{ item.id }}" method="post"><button type="submit" class="btn btn-success" role="button">Wijzig</button></form> 
+                            </div>
+                            <div class="row itembutton">
+
+                                <form class="navbar-form navbar-right" action="item.php?action=delete&id={{ item.id }}" method="post"><button type="submit" class="btn btn-danger" role="button">Verwijder</button></form>
+                            </div>
+                        {% endif %}
+
                     </div>
 
                 </div>
-                <div class="itemdetails col-sm-6 col-md-7">
-                    <div class="col-sm-12"><a href="search.php?keywords=&section={{ item.section.id }}&search">{{item.section.name}}: </a><span class="itemtitle">{{ item.title|capitalize }}</span></div> 
-                    <div class="itemdescription col-sm-12">{{ item.description }}</div>
-                    <form class="detailbutton col-sm-12" action="item.php?id={{ item.id }}" method="post"><button type="submit" class=" btn btn-default" role="button">Meer...</button></form>
-
-
-
-
-                </div>
-                <div class="col-sm-2 col-md-2">
-
-                    {% if item.user.username == user.username %}
-
-                        <div class="row itembutton">
-                            <form class="navbar-form navbar-right" action="item.php?action=edit&id={{ item.id }}" method="post"><button type="submit" class="btn btn-success" role="button">Wijzig</button></form> 
-                        </div>
-                        <div class="row itembutton">
-
-                            <form class="navbar-form navbar-right" action="item.php?action=delete&id={{ item.id }}" method="post"><button type="submit" class="btn btn-danger" role="button">Verwijder</button></form>
-                        </div>
-                    {% endif %}
-
-                </div>
-
-            </div>
 
 
 
@@ -109,9 +119,9 @@
 
 
 
-        {% endfor %}
+            {% endfor %}
         </div>
-    </section>
+
 
 
 
