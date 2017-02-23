@@ -22,7 +22,7 @@ if (!isset($_SESSION["username"])) {
     $user = $userSvc->getByUsername($_SESSION["username"]);
     
     //print_r($user);
-    $view = $twig->render("items.twig", array("itemList" => $itemList, "username" =>$_SESSION["username"], "user" => $user));
+    $view = $twig->render("items.twig", array("itemList" => $itemList, "username" =>$_SESSION["username"], "user" => $user, "page" => "items"));
     print($view);
 }
 

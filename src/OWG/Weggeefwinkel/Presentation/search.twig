@@ -3,7 +3,7 @@
 {% block title %}Zoeken{% endblock %}
 
 {% block content %}
-    <div class="searchform">
+    <!--<div class="searchform">
         <div class="titleContainer">
             <h4 class="reverseTitle">zoeken</h4>
         </div>
@@ -11,48 +11,103 @@
             <input type="text" name="keywords" placeholder="trefwoorden"></input>
            <select name="postcode">
                 <option selected disabled>Postcode...</option>
-                {% for city in cityList %}              
-                    <option value="{{ city.postcode }}">{{ city.name }}, {{ city.postcode }}</option>
-                {% endfor %}
-            </select>
-            <select name="section">
-                <option selected disabled>Sectie...</option>
+    {% for city in cityList %}              
+        <option value="{{ city.postcode }}">{{ city.name }}, {{ city.postcode }}</option>
+    {% endfor %}
+</select>
+<select name="section">
+    <option selected disabled>Sectie...</option>
 
-                {% for section in sectionList %}              
-                    <option value="{{ section.id }}">{{ section.name }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" name="search" value="Zoek">
+    {% for section in sectionList %}              
+        <option value="{{ section.id }}">{{ section.name }}</option>
+    {% endfor %}
+</select>
+<input type="submit" name="search" value="Zoek">
+</form>
+</div>-->
+    <div class="col-md-8 centered-column">
+
+        <h2>Zoeken</h2>
+
+        <form action="search.php" method="get">
+            <div class="form-group">
+                <input type="text" name="keywords" placeholder="trefwoorden" class="form-control"></input>
+            </div>
+            <div class="form-group">
+                <select name="postcode" class="form-control">
+                    <option selected disabled>Postcode...</option>
+                    {% for city in cityList %}              
+                        <option value="{{ city.id }}">{{ city.name }}, {{ city.postcode }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="section"  class="form-control">
+                    <option selected disabled>Sectie...</option>
+                    {% for section in sectionList %}              
+                        <option value="{{ section.id }}">{{ section.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-default" type="submit" name="search">Zoek</button>
         </form>
     </div>
+</div>
+
+{% for item in itemList %}
 
 
-    {% for item in itemList %}
-        
-            <div class="itemdetails">
+                <div class="itemrow">
+                    <div class="col-sm-4 col-md-3 ">
+                        <div class="thumbnail text-center">
+                            <img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}" alt="...">
+                            <div class="caption">
+                                {{ item.user.city.postcode }} - {{ item.user.city.name }} <br>
+                                {{ item.user.username }}
 
 
-               <div class="itemImg"> <a href="item.php?action=show&id={{ item.id }}"><img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}"></a></div>
+                            </div>
+                        </div>
 
-                <div class="itemcontent">
-
-                    <h4>{{ item.title|capitalize }}</h4>
-                    <div class="itemdescription">{{ item.description }} </div>
-
-                    <div class="itemfooter">
-                        <span class="itemlocation">{{ item.user.username }} - {{ item.user.city.postcode }} - {{ item.user.city.name }}</span>
-                        <h4 id="item-sectionName">{{item.section.name}}</h4>
                     </div>
+                    <div class="itemdetails col-sm-6 col-md-7">
+                        <div class="col-sm-12"><a href="search.php?keywords=&section={{ item.section.id }}&search">{{item.section.name}}: </a><span class="itemtitle">{{ item.title|capitalize }}</span></div> 
+                        <div class="itemdescription col-sm-12">{{ item.description }}</div>
+                        <form class="detailbutton col-sm-12" action="item.php?id={{ item.id }}" method="post"><button type="submit" class=" btn btn-default" role="button">Meer...</button></form>
+
+
+
+
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+
+                        {% if item.user.username == user.username %}
+
+                            <div class="row itembutton">
+                                <form class="navbar-form navbar-right" action="item.php?action=edit&id={{ item.id }}" method="post"><button type="submit" class="btn btn-success" role="button">Wijzig</button></form> 
+                            </div>
+                            <div class="row itembutton">
+
+                                <form class="navbar-form navbar-right" action="item.php?action=delete&id={{ item.id }}" method="post"><button type="submit" class="btn btn-danger" role="button">Verwijder</button></form>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
                 </div>
 
 
 
 
+<!--<div class="editDelete"><a href="item.php?action=edit&id={{ item.id }}">Edit</a>&nbsp;-&nbsp;<a href="item.php?action=delete&id={{ item.id }}">Delete</a></div>-->
 
-            </div>
-        
 
-    {% endfor %}
+
+
+
+
+
+            {% endfor %}
 
 
 

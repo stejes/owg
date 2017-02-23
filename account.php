@@ -31,7 +31,7 @@ if (!isset($_SESSION["username"])) {
     $user = $userSvc->getByUsername($_SESSION["username"]);
     
     //print_r($user);
-    $view = $twig->render("account.twig", array("itemList" => $itemList, "username" =>$_SESSION["username"], "user" => $user, "cityList" => $cityList));
+    $view = $twig->render("account.twig", array("itemList" => $itemList, "username" =>$_SESSION["username"], "user" => $user, "cityList" => $cityList, "page" => "account"));
     print($view);
 }
 

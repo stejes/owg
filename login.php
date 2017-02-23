@@ -119,8 +119,10 @@ if (!isset($_SESSION["username"])) {
 } else {
     $itemSvc = new ItemService();
     $itemList = $itemSvc->getByUser($_SESSION["username"]);
-    $view = $twig->render("account.twig", array("itemList" => $itemList, "username" => $_SESSION["username"]));
-    print($view);
+    //$view = $twig->render("account.twig", array("itemList" => $itemList, "username" => $_SESSION["username"]));
+    //print($view);
+    header("location:items.php");
+    exit(0);
     //print "jeuj: " . $_SESSION["username"];
 }
 
