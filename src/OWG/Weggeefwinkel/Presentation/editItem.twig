@@ -3,26 +3,31 @@
 {% block title %}Edit item{% endblock %}
 
 {% block content %}
-    <h1>Edit item {{ item.title }}</h1>
-    <form action="item.php?action=edit&id={{ item.id }}" method="post" enctype="multipart/form-data">
-        <input type="text" name="title" value="{{item.title}}">
-        <input type="text" name="description" value="{{item.description}}">
-        <label for="img">Foto wijzigen (max 1.9 Mb): </label>
-        <input type="file" name="img" >
-        <select name="sectionId">
-            {% for section in sectionList %}
-                {% set selected = "" %}
-                {{section.id}} en {{item.section.id}}
-                {% if section.id == item.section.id %}
-                    
-                    {% set selected = "selected"  %}
-                {% endif %}
 
-                <option value="{{ section.id }}" {{ selected }}>{{ section.name }}</option>
+
+            <div class="col-md-6 centered-column">
+   <h1>Edit item {{ item.title }}</h1>
+    <form action="item.php?action=edit&id={{ item.id }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        <input type="text" name="title" class="form-control" placeholder="titel">
+        </div>
+        <div class="form-group">
+        <input type="text" name="description" class="form-control" placeholder="omschrijving">
+        </div>
+        <div class="form-group">
+        <label for="img">Voeg een foto toe (max 1.9 Mb): </label>
+    
+        <input type="file" name="img" class="form-control" placeholder="fotobestand">
+        </div>
+        <div class="form-group">
+        <select class="form-control" name="section">
+            {% for section in sectionList %}              
+                <option value="{{ section.id }}">{{ section.name }}</option>
             {% endfor %}
         </select>
-        <input type="submit" name="submit" value="Wijzigen">
+        </div>
+        <button type="submit" name="submit" class="btn btn-default">Wijzigen</button>
 
     </form>
-
+    </div>
 {% endblock %}

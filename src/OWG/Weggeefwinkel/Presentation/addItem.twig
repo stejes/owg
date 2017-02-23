@@ -3,19 +3,30 @@
 {% block title %}Edit item{% endblock %}
 
 {% block content %}
+    <div class="col-md-6 centered-column">
     <h1>Voeg item toe: {{ item.title }}</h1>
     <form action="item.php?action=add" method="post" enctype="multipart/form-data">
-        <input type="text" name="title" placeholder="titel">
-        <input type="text" name="description" placeholder="omschrijving">
+        <div class="form-group">
+        <input type="text" name="title" class="form-control" placeholder="titel">
+        </div>
+        <div class="form-group">
+        <input type="text" name="description" class="form-control" placeholder="omschrijving">
+        </div>
+        <div class="form-group">
         <label for="img">Voeg een foto toe (max 1.9 Mb): </label>
-        <input type="file" name="img" placeholder="fotobestand">
-        <select name="section">
+    
+        <input type="file" name="img" class="form-control" placeholder="fotobestand">
+        </div>
+        <div class="form-group">
+        <select class="form-control" name="section">
             {% for section in sectionList %}              
                 <option value="{{ section.id }}">{{ section.name }}</option>
             {% endfor %}
         </select>
-        <input type="submit" name="addItem" value="Toevoegen">
+        </div>
+        <input type="submit" name="addItem" class="btn btn-default" value="Toevoegen">
 
     </form>
+    </div>
 
 {% endblock %}
