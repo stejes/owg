@@ -114,7 +114,7 @@ if (!isset($_SESSION["username"])) {
         $error = $_GET["error"];
         //array_push($registererrors, $_GET["error"]);
     }
-    $view = $twig->render("loginForm.twig", array("cityList" => $cityList, "regerrors" => $registererrors, "error" => $error));
+    $view = $twig->render("loginForm.twig", array("cityList" => $cityList, "regerrors" => $registererrors, "error" => $error, "loginActive" => "active"));
     print($view);
 } else {
     $itemSvc = new ItemService();

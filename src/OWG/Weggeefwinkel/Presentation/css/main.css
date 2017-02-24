@@ -18,6 +18,10 @@ html{
     /*max-width: 740px;*/
 }
 
+.recent{
+    margin-top: 5em;
+}
+
 .centered-column{
     margin: 0 auto;
     float: none;
