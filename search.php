@@ -25,18 +25,26 @@ if (isset($_GET["search"])) {
     $section = "";
     if (isset($_GET["keywords"]) && $_GET["keywords"] != "") {
         $keywords = $_GET["keywords"];
+       
     }
     if (isset($_GET["postcode"]) && $_GET["postcode"] != "") {
         $postcode = $_GET["postcode"];
+        
     }
     if (isset($_GET["section"]) && $_GET["section"] != "") {
         $section = $_GET["section"];
     }
+    
+    $usedKeywords = $keywords;
+    
+    
     $keywords = explode(" ", $_GET["keywords"]);
 
+    
+    
     $itemList = $itemSvc->search($keywords, $postcode, $section);
-    // print_r($keywords);
-    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "itemList" => $itemList, "keywords" => $keywords, "username" => $username, "cityList" => $cityList, "searchActive" => "active"));
+    //print_r($itemList);
+    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "itemList" => $itemList, "keywords" => $keywords, "usedKeywords" => $usedKeywords, "usedPostcode" => $postcode, "usedSection" => $section, "username" => $username, "cityList" => $cityList, "searchActive" => "active"));
     print($view);
 } else {
     $view = $twig->render("search.twig", array("sectionList" => $sectionList, "username" => $username, "cityList" => $cityList, "searchActive" => "active"));
