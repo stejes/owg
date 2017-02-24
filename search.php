@@ -36,9 +36,9 @@ if (isset($_GET["search"])) {
 
     $itemList = $itemSvc->search($keywords, $postcode, $section);
     // print_r($keywords);
-    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "itemList" => $itemList, "keywords" => $keywords, "username" => $username, "cityList" => $cityList, "page" => "search"));
+    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "itemList" => $itemList, "keywords" => $keywords, "username" => $username, "cityList" => $cityList, "searchActive" => "active"));
     print($view);
 } else {
-    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "username" => $username, "cityList" => $cityList, "page" => "search"));
+    $view = $twig->render("search.twig", array("sectionList" => $sectionList, "username" => $username, "cityList" => $cityList, "searchActive" => "active"));
     print($view);
 }

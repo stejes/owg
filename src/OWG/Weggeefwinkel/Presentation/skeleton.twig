@@ -43,12 +43,12 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav ">
                         
-                        <li {% if page == "search" %} class="active"{% endif %}><a href="search.php">zoeken</a></li>
+                        <li class="{{ searchActive }}"><a href="search.php">zoeken</a></li>
                         {% if not username == "" %}
-                        <li {% if page == "account" %} class="active"{% endif %}><a href="account.php">account</a></li>
-                        <li {% if page == "items" %} class="active"{% endif %}><a href="items.php">items</a></li>
-                        <li {% if page == "messages" %} class="active"{% endif %}><a href="messages.php">berichten</a></li>
-                        <li {% if page == "logout" %} class="active"{% endif %}><a href="logout.php">logout</a></li>
+                        <li class="{{ accountActive }}"><a href="account.php">account</a></li>
+                        <li class="{{ itemsActive }}"><a href="items.php">items</a></li>
+                        <li class="{{ messagesActive }}"><a href="messages.php">berichten</a></li>
+                        <li class=""><a href="logout.php">logout</a></li>
                         {% endif %}
                     </ul>
                     {% if username == "" %}
@@ -59,7 +59,7 @@
                             <div class="form-group">
                                 <input type="password" name="password" placeholder="Wachtwoord" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-success">Sign in</button>
+                            <button type="submit" name="login" class="btn btn-success">Log in</button>
                         </form>
                     {% endif %}
                 </div><!--/.navbar-collapse -->

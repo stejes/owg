@@ -27,7 +27,7 @@ if (!isset($_SESSION["username"])) {
     $messageList = $messageSvc->getUserMessages($userid);
 
 
-    $view = $twig->render("messages.twig", array("username" => $username, "messageList" => $messageList, "page" => "messages"));
+    $view = $twig->render("messages.twig", array("username" => $username, "messageList" => $messageList, "messagesActive" => "active"));
     print($view);
 }
 
