@@ -1,6 +1,6 @@
 {% extends "skeleton.twig" %}
 
-{% block title %}Edit item{% endblock %}
+{% block title %}Nieuw item{% endblock %}
 
 {% block content %}
     <div class="col-md-6 centered-column">
@@ -10,7 +10,8 @@
         <input type="text" name="title" class="form-control" placeholder="titel">
         </div>
         <div class="form-group">
-        <input type="text" name="description" class="form-control" placeholder="omschrijving">
+        
+        <textarea name="description" class="form-control" placeholder="omschrijving"></textarea>
         </div>
         <div class="form-group">
         <label for="img">Voeg een foto toe (max 1.9 Mb): </label>

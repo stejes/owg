@@ -54,7 +54,7 @@ if (isset($_POST["login"])) {
         array_push($registererrors, $error);
     }
 
-    if (!isset($_POST["city"]) || !ctype_digit($_POST["city"])) {
+    if (!isset($_POST["city"]) || !ctype_digit($_POST["city"])  || $_POST["city"] > 100000) {
         //header("location:login.php?error=invalidcity");
         $error = "Ongeldige gemeente";
         array_push($registererrors, $error);

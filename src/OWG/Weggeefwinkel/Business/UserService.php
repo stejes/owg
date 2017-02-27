@@ -49,7 +49,6 @@ class UserService {
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $newId = $userDao->create($username, $cityId, $hash);
         return $newId;
-        
     }
 
     public function getByUsername($username) {
@@ -67,6 +66,9 @@ class UserService {
         $user = $userDao->getByUsername($_SESSION["username"]);
         $cityDao = new CityDAO();
         $city = $cityDao->getById($cityId);
+        if ($city == null) {
+            throw new InvalidCityException();
+        }
         $user->setEmail($email);
         $user->setCity($city);
         $userDao->update($user);
