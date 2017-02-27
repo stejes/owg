@@ -5,29 +5,41 @@
 {% block content %}
 
 
-            <div class="col-md-6 centered-column">
-   <h1>Edit item {{ item.title }}</h1>
-    <form action="item.php?action=edit&id={{ item.id }}" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-        <input type="text" name="title" class="form-control" placeholder="titel">
-        </div>
-        <div class="form-group">
-        <input type="text" name="description" class="form-control" placeholder="omschrijving">
-        </div>
-        <div class="form-group">
-        <label for="img">Voeg een foto toe (max 1.9 Mb): </label>
-    
-        <input type="file" name="img" class="form-control" placeholder="fotobestand">
-        </div>
-        <div class="form-group">
-        <select class="form-control" name="section">
-            {% for section in sectionList %}              
-                <option value="{{ section.id }}">{{ section.name }}</option>
-            {% endfor %}
-        </select>
-        </div>
-        <button type="submit" name="submit" class="btn btn-default">Wijzigen</button>
+    <div class="col-md-6 centered-column">
+        <h1>Edit item {{ item.title }}</h1>
+        <form action="item.php?action=edit&id={{ item.id }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Titel:</label>
+                <input type="text" name="title" class="form-control" placeholder="titel" value="{{ item.title }}">
+            </div>
+            <div class="form-group">
+                <label for="description">Omschrijving:</label>
+                <textarea name="description" class="form-control" placeholder="omschrijving">{{ item.description }}</textarea>
+            </div>
+            <div class="form-group">
+            <img src="src/OWG/Weggeefwinkel/Presentation/Img/thumb_{{ item.img }}">
+                <label for="removeImg">Verwijder foto
+                <input type="checkbox" class="form-control" name="removeImg"></label>
+         
+               
+            </div>
 
-    </form>
+             
+              <div class="form-group">
+                <label for="img">Of wijzig foto (max 1.9 Mb): </label>
+
+                <input type="file" name="img" class="form-control" placeholder="fotobestand">
+            </div>
+            <div class="form-group">
+                <label for="section">Sectie:</label>
+                <select class="form-control" name="section">
+                    {% for section in sectionList %}              
+                        <option value="{{ section.id }}">{{ section.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-default">Wijzigen</button>
+
+        </form>
     </div>
 {% endblock %}

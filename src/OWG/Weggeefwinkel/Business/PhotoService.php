@@ -18,9 +18,17 @@ class PhotoService {
     private static $target_dir = "src/OWG/Weggeefwinkel/Presentation/Img/";
 
     function make_thumb($src, $dest, $desired_width) {
-        
+        $imageFileType = pathinfo($src, PATHINFO_EXTENSION);
         /* read the source image */
+         if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
         $source_image = imagecreatefromjpeg($src);
+         } elseif ($imageFileType == "png") {
+
+            $source_image = imagecreatefrompng($src);
+            imageAlphaBlending($source_image, true);
+            imageSaveAlpha($source_image, true);
+        }
+        
         $width = imagesx($source_image);
         $height = imagesy($source_image);
         print $src;
@@ -58,7 +66,8 @@ class PhotoService {
     }
 
     public function handlePhoto($photo) {
-        $fileName = $_SESSION["username"] . "_" . basename($photo["name"]);
+        $randomString = time() . "-" . rand(0, 100000);
+        $fileName = $randomString . "_" . basename($photo["name"]);
         // $usernameDir = $_SESSION["username"] . "/";
         // Check if file already exists
         $uploadOk = 1;

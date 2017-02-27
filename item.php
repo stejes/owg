@@ -26,20 +26,44 @@ $item = null;
 if (isset($_GET["id"])) {
     $item = $itemSvc->getById($_GET["id"]);
 }
-
+$itemErrors = array();
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "add") {
         if (isset($_POST["addItem"])) {
-            $photoSvc = new PhotoService();
-            $photoName = $photoSvc->handlePhoto($_FILES["img"]);
-            $user = $userSvc->getByUsername($_SESSION["username"]);
-            $itemSvc->addItem($_POST["title"], $_POST["description"], $photoName, $_POST["section"], $user->getId());
-            header("location: items.php");
-            exit(0);
-        } else {
-            $view = $twig->render("addItem.twig", array("sectionList" => $sectionList, "username" => $_SESSION["username"]));
-            print($view);
+
+            if (!(isset($_POST["title"]) && isset($_POST["description"])) || $_POST["title"] == "" || $_POST["description"] == "") {
+                $error = "Titel en omschrijving zijn verplicht";
+                array_push($itemErrors, $error);
+            }
+            if (strlen($_POST["title"]) > 50) {
+                $error = "Titel mag maximaal 50 karakters bevatten";
+                array_push($itemErrors, $error);
+            }
+            if (strlen($_POST["description"]) > 500) {
+                $error = "Omschrijving mag maximaal 500 karakters bevatten";
+                array_push($itemErrors, $error);
+            }
+
+            if (strlen($_FILES["img"]["name"]) > 200) {
+                $error = "Bestandsnaam mag maximaal 200 karakters bevatten";
+                array_push($itemErrors, $error);
+            }
+            if (sizeof($itemErrors) == 0) {
+                if (!empty($_FILES["img"]["name"])) {
+                    $photoSvc = new PhotoService();
+
+                    $photoName = $photoSvc->handlePhoto($_FILES["img"]);
+                } else {
+                    $photoName = "no-image.png";
+                }
+                $user = $userSvc->getByUsername($_SESSION["username"]);
+                $itemSvc->addItem($_POST["title"], $_POST["description"], $photoName, $_POST["section"], $user->getId());
+                //header("location: items.php");
+                //exit(0);
+            }
         }
+        $view = $twig->render("addItem.twig", array("sectionList" => $sectionList, "username" => $_SESSION["username"], "itemErrors" => $itemErrors));
+        print($view);
     }
 
 
@@ -49,16 +73,20 @@ if (isset($_GET["action"])) {
 
         if (isset($_POST["submit"])) {
             if ($item->getUser()->getUsername() == $_SESSION["username"]) {
-                $photoSvc = new PhotoService();
-                //print_r($_FILES["img"]);
-                $photoName = $photoSvc->handlePhoto($_FILES["img"]);
-                $itemSvc->updateItem($_GET["id"], $_POST["title"], $_POST["description"], $photoName, $_POST["sectionId"]);
-                /* $itemSvc = new ItemService();
-                  $item = $itemSvc->getById($_GET["id"]); */
+                if(isset($_POST["imgRemove"])){
+                    $photoName = "no-image.png";
+                }
+                elseif (!empty($_FILES["img"]["name"])) {
+                    $photoSvc = new PhotoService();
+
+                    $photoName = $photoSvc->handlePhoto($_FILES["img"]);
+                } else {
+                    $photoName = "no-image.png";
+                }
+                $itemSvc->updateItem($_GET["id"], $_POST["title"], $_POST["description"], $photoName, $_POST["section"]);
+
                 header("location: items.php");
                 exit(0);
-                //print_r($item);
-                //$itemUser = $itemSvc->getUser($_GET["id"]);
             } else {
                 print "ni van u eh";
             }

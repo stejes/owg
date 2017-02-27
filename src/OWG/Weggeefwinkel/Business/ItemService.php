@@ -40,6 +40,16 @@ class ItemService {
         $section = $sectionDAO->getById($sectionId);        
         $item->setTitle($title);
         $item->setDescription($description);
+        $imagePath = "src/OWG/Weggeefwinkel/Presentation/Img/";
+        $file = $imagePath . $item->getImg();
+         if(file_exists($file) && $item->getImg() != "no-image.png"){
+             unlink($file);
+         }
+         $file =  $imagePath . "thumb_" . $item->getImg();
+          if(file_exists($file) && $item->getImg() != "no-image.png"){
+             unlink($file);
+         }
+        
         $item->setImg($img);
         $item->setSection($section);
         $itemDAO->update($item);
