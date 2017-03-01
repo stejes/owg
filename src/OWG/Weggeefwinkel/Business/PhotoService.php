@@ -20,23 +20,29 @@ class PhotoService {
     function make_thumb($src, $dest, $desired_width) {
         $imageFileType = pathinfo($src, PATHINFO_EXTENSION);
         /* read the source image */
-         if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
-        $source_image = imagecreatefromjpeg($src);
-         } elseif ($imageFileType == "png") {
+        if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
+            $source_image = imagecreatefromjpeg($src);
+        } elseif ($imageFileType == "png") {
 
             $source_image = imagecreatefrompng($src);
-            imageAlphaBlending($source_image, true);
-            imageSaveAlpha($source_image, true);
+            //imageAlphaBlending($source_image, true);
+            //imageSaveAlpha($source_image, true);
         }
-        
+
         $width = imagesx($source_image);
         $height = imagesy($source_image);
-        print $src;
+        //print $src;
         /* find the "desired height" of this thumbnail, relative to the desired width  */
-       $desired_height = floor($height * ($desired_width / $width));
+        $desired_height = floor($height * ($desired_width / $width));
 
         /* create a new, "virtual" image */
         $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+        imagealphablending($virtual_image, false);
+        imagesavealpha($virtual_image, true);
+
+        $trans_layer_overlay = imagecolorallocatealpha($virtual_image, 255, 255, 255, 127);
+        imagefilledrectangle($virtual_image, 0, 0, $desired_width, $desired_height, $trans_layer_overlay);
 
         /* copy source image at a resized size */
         imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
@@ -44,9 +50,9 @@ class PhotoService {
         /* create the physical thumbnail image to its destination */
         imagejpeg($virtual_image, $dest);
     }
-    
-     function make_thumb2($src, $dest, $desired_height) {
-        
+
+    function make_thumb2($src, $dest, $desired_height) {
+
         /* read the source image */
         $source_image = imagecreatefromjpeg($src);
         $width = imagesx($source_image);
@@ -54,7 +60,7 @@ class PhotoService {
         print $src;
         /* find the "desired height" of this thumbnail, relative to the desired width  */
         //$desired_height = floor($height * ($desired_width / $width));
-        $desired_width = floor($width * ($desired_height/$height));
+        $desired_width = floor($width * ($desired_height / $height));
         /* create a new, "virtual" image */
         $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
 
@@ -109,12 +115,13 @@ class PhotoService {
             if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
                 $thumb_target_file = self::$target_dir . 'thumb_' . $fileName;
                 $this->make_thumb($target_file, $thumb_target_file, 200);
-                echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+                //echo "The file " . basename($_FILES["fileToUpload"]["tmp_name"]) . " has been uploaded.";
+                 //echo "The file " . basename($_FILES["img"]["tmp_name"]) . " has been uploaded.";
                 return $fileName;
             } else {
                 echo "Sorry, there was an error uploading your file.";
                 //return $target_file;
-                return "ja";
+                //return "ja";
             }
         }
     }
