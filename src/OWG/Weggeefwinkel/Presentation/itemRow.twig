@@ -17,7 +17,7 @@
 
                 </div>
                 <div class="itemdetails col-sm-6 col-md-7">
-                    <div class="col-sm-12"><a href="search.php?keywords=&section={{ item.section.id }}&search">{{item.section.name}}: </a><span class="itemtitle">{{ item.title|capitalize }}</span></div> 
+                    <div class="col-sm-12"><a href="search.php?keywords=&section={{ item.section.id }}&search">{{item.section.name}}: </a><span class="itemtitle">{{ item.title }}</span></div> 
                     <div class="itemdescription col-sm-12">{{ item.description }}</div>
                     <form class="detailbutton col-sm-12" action="item.php?id={{ item.id }}" method="post"><button type="submit" class=" btn btn-default" role="button">Meer...</button></form>
 

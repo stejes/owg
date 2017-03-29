@@ -48,7 +48,11 @@ class PhotoService {
         imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 
         /* create the physical thumbnail image to its destination */
-        imagejpeg($virtual_image, $dest);
+        if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
+            imagejpeg($virtual_image, $dest);
+        } elseif ($imageFileType == "png") {
+            imagepng($virtual_image, $dest);
+        }
     }
 
     function make_thumb2($src, $dest, $desired_height) {
@@ -102,8 +106,8 @@ class PhotoService {
             $uploadOk = 0;
         }
         // Allow certain file formats
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" /*&& $imageFileType != "gif"*/) {
+            echo "Sorry, only JPG, JPEG & PNG are allowed.";
             $uploadOk = 0;
         }
 
@@ -116,7 +120,7 @@ class PhotoService {
                 $thumb_target_file = self::$target_dir . 'thumb_' . $fileName;
                 $this->make_thumb($target_file, $thumb_target_file, 200);
                 //echo "The file " . basename($_FILES["fileToUpload"]["tmp_name"]) . " has been uploaded.";
-                 //echo "The file " . basename($_FILES["img"]["tmp_name"]) . " has been uploaded.";
+                //echo "The file " . basename($_FILES["img"]["tmp_name"]) . " has been uploaded.";
                 return $fileName;
             } else {
                 echo "Sorry, there was an error uploading your file.";

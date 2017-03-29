@@ -46,6 +46,8 @@
                 <div class="alert alert-danger">Foutieve input</div>
             {% elseif error == "unknown" %}
                 <div class="alert alert-danger">Onbekende fout</div>
+                {% elseif error == "illegalcharacters" %}
+                <div class="alert alert-danger">Gebruikersnaam mag enkel lettertekens bevatten</div>
             {% endif %}
 
             {% if regerrors|length > 0 %}

@@ -27,60 +27,15 @@ body {
     margin-top: 5em;
 }
 
-.centered-column{
-    margin: 0 auto;
-    float: none;
-}
+.itembutton{
+    float: left;
+    margin: 0 0 0 15px;
 
-.itemtitle{
-    font-weight: bold;
-    font-size: 1.5em;
-
-}
-
-.itemdetails{
-    height: 100%;
-    position: relative;
-
-}
-
-.itemrow .thumbnail{
-    height: 220px;
-}
-
-.itemrow .thumbnail > img, .itemrow .thumbnail a > img{
-    height: 150px;
-    width: auto;
-}
-
-.itemfull .thumbnail  img, .itemfull .thumbnail a  img{
-    max-height: 350px;
-    width: auto;
-    margin: 0 auto;
-
-}
-.itemrow{
-    position: relative;
-    border-bottom: inset 1px grey;
-    margin-top: 20px;
-    height: 240px;
-    padding-bottom: 20px;
-    box-sizing: border-box;
-}
-
-.imgback{
-    width: 100%;
-    background: lightgrey;
-}
-
-.itembutton button{
-    width: 90px;
 }
 
 .detailbutton{
-    position: absolute;
-    bottom: 0;
-}
+       margin-bottom: 5px;
+    }
 
 .itemfull{
     margin: 0 auto;
@@ -92,12 +47,67 @@ body {
     clear: both;
     width: 100%;
     position: absolute;
-    
+
     bottom: 0;
 }
 
 
+@media all and (min-width: 768px){
+    .centered-column{
+        margin: 0 auto;
+        float: none;
+    }
 
+    .itemtitle{
+        font-weight: bold;
+        font-size: 1.5em;
+
+    }
+
+    .itemdetails{
+        height: 100%;
+        position: relative;
+
+    }
+
+    .itemrow .thumbnail{
+        height: 220px;
+    }
+
+    .itemrow .thumbnail > img, .itemrow .thumbnail a > img{
+        height: 150px;
+        width: auto;
+    }
+
+    .itemfull .thumbnail  img, .itemfull .thumbnail a  img{
+        max-height: 350px;
+        width: auto;
+        margin: 0 auto;
+
+    }
+    .itemrow{
+        position: relative;
+        border-bottom: inset 1px grey;
+        margin-top: 20px;
+        height: 240px;
+        padding-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .imgback{
+        width: 100%;
+        background: lightgrey;
+    }
+
+    .itembutton button{
+        width: 90px;
+    }
+
+    .detailbutton{
+        position: absolute;
+        bottom: 0;
+    }
+}
 
 
 
